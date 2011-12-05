@@ -1,0 +1,279 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4233E7BA148D2D4200F5703C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4233E7B9148D2D4200F5703C /* UIKit.framework */; };
+		4233E7BC148D2D4200F5703C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4233E7BB148D2D4200F5703C /* Foundation.framework */; };
+		4233E7BE148D2D4200F5703C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4233E7BD148D2D4200F5703C /* CoreGraphics.framework */; };
+		4233E7C4148D2D4200F5703C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4233E7C2148D2D4200F5703C /* InfoPlist.strings */; };
+		4233E7C6148D2D4200F5703C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7C5148D2D4200F5703C /* main.m */; };
+		4233E7CA148D2D4200F5703C /* APVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7C9148D2D4200F5703C /* APVAppDelegate.m */; };
+		4233E7CD148D2D4200F5703C /* APVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7CC148D2D4200F5703C /* APVViewController.m */; };
+		4233E7D0148D2D4200F5703C /* APVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4233E7CE148D2D4200F5703C /* APVViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4233E7B5148D2D4200F5703C /* iCloudTesting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCloudTesting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4233E7B9148D2D4200F5703C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4233E7BB148D2D4200F5703C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4233E7BD148D2D4200F5703C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4233E7C1148D2D4200F5703C /* iCloudTesting-Info.plist */ = {isa = PBXFileReference; path = "iCloudTesting-Info.plist"; sourceTree = "<group>"; };
+		4233E7C3148D2D4200F5703C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4233E7C5148D2D4200F5703C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4233E7C7148D2D4200F5703C /* iCloudTesting-Prefix.pch */ = {isa = PBXFileReference; path = "iCloudTesting-Prefix.pch"; sourceTree = "<group>"; };
+		4233E7C8148D2D4200F5703C /* APVAppDelegate.h */ = {isa = PBXFileReference; path = APVAppDelegate.h; sourceTree = "<group>"; };
+		4233E7C9148D2D4200F5703C /* APVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APVAppDelegate.m; sourceTree = "<group>"; };
+		4233E7CB148D2D4200F5703C /* APVViewController.h */ = {isa = PBXFileReference; path = APVViewController.h; sourceTree = "<group>"; };
+		4233E7CC148D2D4200F5703C /* APVViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APVViewController.m; sourceTree = "<group>"; };
+		4233E7CF148D2D4200F5703C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/APVViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4233E7B2148D2D4200F5703C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4233E7BA148D2D4200F5703C /* UIKit.framework in Frameworks */,
+				4233E7BC148D2D4200F5703C /* Foundation.framework in Frameworks */,
+				4233E7BE148D2D4200F5703C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4233E7AA148D2D4200F5703C = {
+			isa = PBXGroup;
+			children = (
+				4233E7BF148D2D4200F5703C /* iCloudTesting */,
+				4233E7B8148D2D4200F5703C /* Frameworks */,
+				4233E7B6148D2D4200F5703C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4233E7B6148D2D4200F5703C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7B5148D2D4200F5703C /* iCloudTesting.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4233E7B8148D2D4200F5703C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7B9148D2D4200F5703C /* UIKit.framework */,
+				4233E7BB148D2D4200F5703C /* Foundation.framework */,
+				4233E7BD148D2D4200F5703C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4233E7BF148D2D4200F5703C /* iCloudTesting */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7C8148D2D4200F5703C /* APVAppDelegate.h */,
+				4233E7C9148D2D4200F5703C /* APVAppDelegate.m */,
+				4233E7CB148D2D4200F5703C /* APVViewController.h */,
+				4233E7CC148D2D4200F5703C /* APVViewController.m */,
+				4233E7CE148D2D4200F5703C /* APVViewController.xib */,
+				4233E7C0148D2D4200F5703C /* Supporting Files */,
+			);
+			path = iCloudTesting;
+			sourceTree = "<group>";
+		};
+		4233E7C0148D2D4200F5703C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7C1148D2D4200F5703C /* iCloudTesting-Info.plist */,
+				4233E7C2148D2D4200F5703C /* InfoPlist.strings */,
+				4233E7C5148D2D4200F5703C /* main.m */,
+				4233E7C7148D2D4200F5703C /* iCloudTesting-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4233E7B4148D2D4200F5703C /* iCloudTesting */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4233E7D3148D2D4200F5703C /* Build configuration list for PBXNativeTarget "iCloudTesting" */;
+			buildPhases = (
+				4233E7B1148D2D4200F5703C /* Sources */,
+				4233E7B2148D2D4200F5703C /* Frameworks */,
+				4233E7B3148D2D4200F5703C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iCloudTesting;
+			productName = iCloudTesting;
+			productReference = 4233E7B5148D2D4200F5703C /* iCloudTesting.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4233E7AC148D2D4200F5703C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 4233E7AF148D2D4200F5703C /* Build configuration list for PBXProject "iCloudTesting" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4233E7AA148D2D4200F5703C;
+			productRefGroup = 4233E7B6148D2D4200F5703C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4233E7B4148D2D4200F5703C /* iCloudTesting */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4233E7B3148D2D4200F5703C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4233E7C4148D2D4200F5703C /* InfoPlist.strings in Resources */,
+				4233E7D0148D2D4200F5703C /* APVViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4233E7B1148D2D4200F5703C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4233E7C6148D2D4200F5703C /* main.m in Sources */,
+				4233E7CA148D2D4200F5703C /* APVAppDelegate.m in Sources */,
+				4233E7CD148D2D4200F5703C /* APVViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4233E7C2148D2D4200F5703C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4233E7C3148D2D4200F5703C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4233E7CE148D2D4200F5703C /* APVViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4233E7CF148D2D4200F5703C /* en */,
+			);
+			name = APVViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4233E7D1148D2D4200F5703C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4233E7D2148D2D4200F5703C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4233E7D4148D2D4200F5703C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iCloudTesting/iCloudTesting-Prefix.pch";
+				INFOPLIST_FILE = "iCloudTesting/iCloudTesting-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4233E7D5148D2D4200F5703C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iCloudTesting/iCloudTesting-Prefix.pch";
+				INFOPLIST_FILE = "iCloudTesting/iCloudTesting-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4233E7AF148D2D4200F5703C /* Build configuration list for PBXProject "iCloudTesting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4233E7D1148D2D4200F5703C /* Debug */,
+				4233E7D2148D2D4200F5703C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4233E7D3148D2D4200F5703C /* Build configuration list for PBXNativeTarget "iCloudTesting" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4233E7D4148D2D4200F5703C /* Debug */,
+				4233E7D5148D2D4200F5703C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4233E7AC148D2D4200F5703C /* Project object */;
+}
