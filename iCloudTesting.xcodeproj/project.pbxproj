@@ -15,6 +15,9 @@
 		4233E7CA148D2D4200F5703C /* APVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7C9148D2D4200F5703C /* APVAppDelegate.m */; };
 		4233E7CD148D2D4200F5703C /* APVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7CC148D2D4200F5703C /* APVViewController.m */; };
 		4233E7D0148D2D4200F5703C /* APVViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4233E7CE148D2D4200F5703C /* APVViewController.xib */; };
+		4233E7D9148D3A1900F5703C /* FileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7D8148D3A1800F5703C /* FileController.m */; };
+		4233E7E5148D525E00F5703C /* Timestamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7E4148D525E00F5703C /* Timestamp.m */; };
+		4233E7E9148D5B5D00F5703C /* APVUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4233E7E8148D5B5D00F5703C /* APVUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,15 +25,22 @@
 		4233E7B9148D2D4200F5703C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4233E7BB148D2D4200F5703C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4233E7BD148D2D4200F5703C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4233E7C1148D2D4200F5703C /* iCloudTesting-Info.plist */ = {isa = PBXFileReference; path = "iCloudTesting-Info.plist"; sourceTree = "<group>"; };
+		4233E7C1148D2D4200F5703C /* iCloudTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iCloudTesting-Info.plist"; sourceTree = "<group>"; };
 		4233E7C3148D2D4200F5703C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4233E7C5148D2D4200F5703C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4233E7C7148D2D4200F5703C /* iCloudTesting-Prefix.pch */ = {isa = PBXFileReference; path = "iCloudTesting-Prefix.pch"; sourceTree = "<group>"; };
-		4233E7C8148D2D4200F5703C /* APVAppDelegate.h */ = {isa = PBXFileReference; path = APVAppDelegate.h; sourceTree = "<group>"; };
+		4233E7C7148D2D4200F5703C /* iCloudTesting-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCloudTesting-Prefix.pch"; sourceTree = "<group>"; };
+		4233E7C8148D2D4200F5703C /* APVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APVAppDelegate.h; sourceTree = "<group>"; };
 		4233E7C9148D2D4200F5703C /* APVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APVAppDelegate.m; sourceTree = "<group>"; };
-		4233E7CB148D2D4200F5703C /* APVViewController.h */ = {isa = PBXFileReference; path = APVViewController.h; sourceTree = "<group>"; };
+		4233E7CB148D2D4200F5703C /* APVViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APVViewController.h; sourceTree = "<group>"; };
 		4233E7CC148D2D4200F5703C /* APVViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APVViewController.m; sourceTree = "<group>"; };
 		4233E7CF148D2D4200F5703C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/APVViewController.xib; sourceTree = "<group>"; };
+		4233E7D6148D2F9E00F5703C /* iCloudTesting.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = iCloudTesting.entitlements; sourceTree = "<group>"; };
+		4233E7D7148D3A1800F5703C /* FileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileController.h; sourceTree = "<group>"; };
+		4233E7D8148D3A1800F5703C /* FileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileController.m; sourceTree = "<group>"; };
+		4233E7E3148D525E00F5703C /* Timestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timestamp.h; sourceTree = "<group>"; };
+		4233E7E4148D525E00F5703C /* Timestamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timestamp.m; sourceTree = "<group>"; };
+		4233E7E7148D5B5D00F5703C /* APVUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APVUtilities.h; sourceTree = "<group>"; };
+		4233E7E8148D5B5D00F5703C /* APVUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APVUtilities.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,10 +87,12 @@
 		4233E7BF148D2D4200F5703C /* iCloudTesting */ = {
 			isa = PBXGroup;
 			children = (
+				4233E7D6148D2F9E00F5703C /* iCloudTesting.entitlements */,
+				4233E7DE148D522700F5703C /* Model */,
+				4233E7DC148D521100F5703C /* Controllers */,
+				4233E7DA148D51F300F5703C /* View Controllers */,
 				4233E7C8148D2D4200F5703C /* APVAppDelegate.h */,
 				4233E7C9148D2D4200F5703C /* APVAppDelegate.m */,
-				4233E7CB148D2D4200F5703C /* APVViewController.h */,
-				4233E7CC148D2D4200F5703C /* APVViewController.m */,
 				4233E7CE148D2D4200F5703C /* APVViewController.xib */,
 				4233E7C0148D2D4200F5703C /* Supporting Files */,
 			);
@@ -96,6 +108,67 @@
 				4233E7C7148D2D4200F5703C /* iCloudTesting-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4233E7DA148D51F300F5703C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7DB148D520300F5703C /* APVViewController */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		4233E7DB148D520300F5703C /* APVViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7CB148D2D4200F5703C /* APVViewController.h */,
+				4233E7CC148D2D4200F5703C /* APVViewController.m */,
+			);
+			name = APVViewController;
+			sourceTree = "<group>";
+		};
+		4233E7DC148D521100F5703C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7DD148D521D00F5703C /* FileController */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		4233E7DD148D521D00F5703C /* FileController */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7D7148D3A1800F5703C /* FileController.h */,
+				4233E7D8148D3A1800F5703C /* FileController.m */,
+			);
+			name = FileController;
+			sourceTree = "<group>";
+		};
+		4233E7DE148D522700F5703C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7E2148D524200F5703C /* Timestamp */,
+				4233E7EA148D5B6000F5703C /* APVUtilites */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		4233E7E2148D524200F5703C /* Timestamp */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7E3148D525E00F5703C /* Timestamp.h */,
+				4233E7E4148D525E00F5703C /* Timestamp.m */,
+			);
+			name = Timestamp;
+			sourceTree = "<group>";
+		};
+		4233E7EA148D5B6000F5703C /* APVUtilites */ = {
+			isa = PBXGroup;
+			children = (
+				4233E7E7148D5B5D00F5703C /* APVUtilities.h */,
+				4233E7E8148D5B5D00F5703C /* APVUtilities.m */,
+			);
+			name = APVUtilites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +236,9 @@
 				4233E7C6148D2D4200F5703C /* main.m in Sources */,
 				4233E7CA148D2D4200F5703C /* APVAppDelegate.m in Sources */,
 				4233E7CD148D2D4200F5703C /* APVViewController.m in Sources */,
+				4233E7D9148D3A1900F5703C /* FileController.m in Sources */,
+				4233E7E5148D525E00F5703C /* Timestamp.m in Sources */,
+				4233E7E9148D5B5D00F5703C /* APVUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,10 +310,13 @@
 		4233E7D4148D2D4200F5703C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = iCloudTesting/iCloudTesting.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michal Tuszynski (8QX5V75K5T)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloudTesting/iCloudTesting-Prefix.pch";
 				INFOPLIST_FILE = "iCloudTesting/iCloudTesting-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7FBB9207-8E70-4431-A58A-A2BED829445E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -245,6 +324,7 @@
 		4233E7D5148D2D4200F5703C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = iCloudTesting/iCloudTesting.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iCloudTesting/iCloudTesting-Prefix.pch";
 				INFOPLIST_FILE = "iCloudTesting/iCloudTesting-Info.plist";
