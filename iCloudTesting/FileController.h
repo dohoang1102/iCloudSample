@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define kFileMovedToICloudNotification @"FileMovedToICloudNotification"
-#define kFileFailedMovingToICloudNotification @"FileFailedToMoveToICloudNotification"
 
 @interface FileController : NSObject
 

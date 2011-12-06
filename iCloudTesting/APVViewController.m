@@ -17,8 +17,6 @@
 
 -(void)fetchDocumentsFromCloud;
 -(void)metadataSearchCompleted:(NSNotification *)notification;
--(void)fileMovedToIcloud:(NSNotification *)notification;
--(void)fileFailedToMoveToICloud:(NSNotification *)notification;
 -(void)documentStateChanged:(NSNotification *)notification;
 
 @end
@@ -80,7 +78,6 @@
         NSURL *fileUrl = [item valueForAttribute:NSMetadataItemURLKey];
         
         Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:fileUrl];
-        NSLog(@"%@", [timestamp date]);
         [self.icloudFilesArray addObject:timestamp];
         
         [timestamp release];
@@ -91,33 +88,6 @@
     [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationMiddle];
 }
 
-
--(void)fileMovedToIcloud:(NSNotification *)notification {
-    
-    Timestamp *timestamp = (Timestamp *)[notification object];
-    
-    [APVUtilities spawnAlertWithMessage:[NSString stringWithFormat:@"File %@ is in your iCloud!", [timestamp localizedName]]];
-    
-    [self.icloudFilesArray addObject:timestamp];
-    
-    NSIndexPath *path = [NSIndexPath indexPathForRow:[self.icloudFilesArray count] - 1 
-                                           inSection:1];
-    
-    [self.tableView beginUpdates];
-    
-    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:path] 
-                          withRowAnimation:UITableViewRowAnimationMiddle];
-    
-    [self.tableView endUpdates];
-    
-}
-
-
--(void)fileFailedToMoveToICloud:(NSNotification *)notification {
-    
-    [APVUtilities spawnAlertWithMessage:@"Failed to move file to iCloud."];
-
-}
 
 #pragma mark - IBActions
 
@@ -147,8 +117,6 @@
 
 -(void)fetchDocumentsFromCloud {
     
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K like '*.%@'", @"time", NSMetadataItemFSNameKey];
-
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT %K.pathExtension = ''", NSMetadataItemFSNameKey];
     
     self.query = [[[NSMetadataQuery alloc] init] autorelease];
@@ -173,16 +141,6 @@
     [filesArray addObjectsFromArray:[FileController getFilesFromDocuments]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(fileMovedToIcloud:) 
-                                                 name:kFileMovedToICloudNotification 
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
-                                             selector:@selector(fileFailedToMoveToICloud:) 
-                                                 name:kFileFailedMovingToICloudNotification 
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self 
                                              selector:@selector(metadataSearchCompleted:)
                                                  name:NSMetadataQueryDidFinishGatheringNotification 
                                                object:nil];
@@ -199,10 +157,6 @@
     
     [self fetchDocumentsFromCloud];
     
-    //NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:icloudUrl 
-    //                                               includingPropertiesForKeys:nil 
-    //                                                                  options:NSDirectoryEnumerationSkipsHiddenFiles 
-    //                                                                    error:nil];
     
 }
 
@@ -357,9 +311,7 @@
         
 
         Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:storageUrl];
-        
-        [timestamp saveToURL:storageUrl forSaveOperation:UIDocumentSaveForOverwriting completionHandler:nil];
-        
+                
         [self.icloudFilesArray addObject:timestamp];
         [self.filesArray removeObjectAtIndex:indexPath.row];
         
@@ -378,41 +330,8 @@
         
         [timestamp closeWithCompletionHandler:nil];
         
-        /*
-        [timestamp saveToURL:storageUrl 
-            forSaveOperation:UIDocumentSaveForCreating 
-           completionHandler:^ (BOOL success) {
-              
-               if (success) {
-                   
-                   [self.icloudFilesArray addObject:timestamp];
-                   [self.filesArray removeObjectAtIndex:indexPath.row];
-                   
-                   NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self.icloudFilesArray count] - 1 
-                                                               inSection:1];
-                   
-                   [self.tableView beginUpdates];
-                   
-                   [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                                         withRowAnimation:UITableViewRowAnimationMiddle];
-                   
-                   [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
-                                         withRowAnimation:UITableViewRowAnimationMiddle];
-                   
-                   [self.tableView endUpdates];
-                   
-                   [timestamp closeWithCompletionHandler:nil];
-                   
-               }
-               
-               else {
-                   
-                   
-                   [APVUtilities spawnAlertWithMessage:@"Failed to save document"];
-                   
-               }
-               
-           }];*/
+        [timestamp release];
+        
     }
     
 }
