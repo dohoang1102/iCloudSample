@@ -232,6 +232,7 @@
     if (indexPath.section == 0) {
      
         [[cell textLabel] setText:[self.filesArray objectAtIndex:indexPath.row]];
+        [[cell detailTextLabel] setText:@""];
         
     }
     else {
@@ -293,45 +294,146 @@
     
     if (indexPath.section == 0) {
         
-        NSString *filePath = (NSString *)[self.filesArray objectAtIndex:indexPath.row];
+        dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
-        if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
+        dispatch_async(dispatchQueue, ^ {
+            
+            NSString *filePath = (NSString *)[self.filesArray objectAtIndex:indexPath.row];
             filePath = [[FileController getDocumentsDirectory] stringByAppendingPathComponent:filePath];
-        
-        
-        NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
-        
-        NSString *fileName = [NSString stringWithFormat:@"%@", [fileUrl lastPathComponent]];
-        NSURL *storageUrl = [[self.icloudUrl URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:fileName];
-        
-        [[NSFileManager defaultManager] setUbiquitous:YES 
-                                            itemAtURL:fileUrl 
-                                       destinationURL:storageUrl 
-                                                error:nil];
-        
+            
+            NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
+            
+            NSString *fileName = [NSString stringWithFormat:@"%@", [fileUrl lastPathComponent]];
+            NSURL *storageUrl = [[self.icloudUrl URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:fileName];
+            
+            
+            NSError *error;
+            
+            if([[NSFileManager defaultManager] setUbiquitous:YES 
+                                                itemAtURL:fileUrl 
+                                           destinationURL:storageUrl 
+                                                    error:&error]) {
+            
+            
+                Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:storageUrl];
+            
+                [self.icloudFilesArray addObject:timestamp];
+                [self.filesArray removeObjectAtIndex:indexPath.row];
+            
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                   
+                    NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self.icloudFilesArray count] - 1 
+                                                                   inSection:1];
+                    
+                    [self.tableView beginUpdates];
+                    
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                                          withRowAnimation:UITableViewRowAnimationMiddle];
+                    
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
+                                          withRowAnimation:UITableViewRowAnimationMiddle];
+                    
+                    [self.tableView endUpdates];
 
-        Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:storageUrl];
+                    
+                });
+                            
+                [timestamp closeWithCompletionHandler:nil];
+            
+                [timestamp release];
+
                 
-        [self.icloudFilesArray addObject:timestamp];
-        [self.filesArray removeObjectAtIndex:indexPath.row];
+            }
+            
+            else {
+                
+            #ifdef DEBUG 
+                NSLog(@"Failed to move file to iCloud: %@", [error localizedDescription]);
+            #endif
+                
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                   
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" 
+                                                                    message:@"Something went wrong. The file failed to move to iCloud." 
+                                                                   delegate:nil 
+                                                          cancelButtonTitle:@"OK" 
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    [alert release];
+                    
+                });
+                
+            }
+            
+            
+        });
         
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self.icloudFilesArray count] - 1 
-                                                       inSection:1];
+               
+    }
+    
+    else {
         
-        [self.tableView beginUpdates];
+        dispatch_queue_t dispatchQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
-                              withRowAnimation:UITableViewRowAnimationMiddle];
-        
-        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
-                              withRowAnimation:UITableViewRowAnimationMiddle];
-        
-        [self.tableView endUpdates];
-        
-        [timestamp closeWithCompletionHandler:nil];
-        
-        [timestamp release];
-        
+        dispatch_async(dispatchQueue, ^ {
+            
+           
+            Timestamp *timestamp = (Timestamp *)[self.icloudFilesArray objectAtIndex:indexPath.row];
+            
+            NSString *targetPath = [[FileController getDocumentsDirectory] stringByAppendingPathComponent:[timestamp localizedName]];
+            
+            NSError *error;
+            
+            if ([[NSFileManager defaultManager] setUbiquitous:NO 
+                                                    itemAtURL:[timestamp fileURL] 
+                                               destinationURL:[NSURL fileURLWithPath:targetPath] 
+                                                        error:&error]) {
+                
+                [self.icloudFilesArray removeObjectAtIndex:indexPath.row];
+                [self.filesArray addObject:[targetPath lastPathComponent]];
+                
+                dispatch_sync(dispatch_get_main_queue(), ^ {
+                    
+                    NSIndexPath *newPath = [NSIndexPath indexPathForRow:[self.filesArray count] - 1 
+                                                              inSection:0];
+                    
+                    [self.tableView beginUpdates];
+                    
+                    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                                          withRowAnimation:UITableViewRowAnimationMiddle];
+                    
+                    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newPath] 
+                                          withRowAnimation:UITableViewRowAnimationMiddle];
+                    
+                    [self.tableView endUpdates];
+                    
+                    
+                });
+                
+            }
+            
+            else {
+                
+            #ifdef DEBUG
+                NSLog(@"Failed to remove document from iCloud: %@", [error localizedDescription]);
+            #endif
+                
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" 
+                                                                    message:@"Failed to remove document from iCloud" 
+                                                                   delegate:nil 
+                                                          cancelButtonTitle:@"OK" 
+                                                          otherButtonTitles:nil];
+                    [alert show];
+                    [alert release];
+                    
+                });
+                
+            }
+
+            
+        });
     }
     
 }

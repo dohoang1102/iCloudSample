@@ -31,7 +31,7 @@
     [NSKeyedArchiver archiveRootObject:date toFile:filePath];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        return filePath;
+        return [filePath lastPathComponent];
     }
     
     else {
