@@ -25,7 +25,8 @@
     NSString *documentsPath = [FileController getDocumentsDirectory];
     NSDate *date = [NSDate date];
     
-    NSString *filePath = [documentsPath stringByAppendingPathExtension:[NSString stringWithFormat:@"%d", [date timeIntervalSince1970]]];
+    NSString *filePath = [documentsPath stringByAppendingPathComponent:
+                          [NSString stringWithFormat:@"%d.time", [date timeIntervalSince1970]]];
     
     [NSKeyedArchiver archiveRootObject:date toFile:filePath];
     
@@ -59,38 +60,5 @@
     }
 }
 
-
-
-
-+(void)storeFileInICloud:(NSString *)fileName withStorageUrl:(NSURL *)storageUrl {
-    
-    NSString *documentsDirectory = [FileController getDocumentsDirectory];
-    NSURL *fileUrl = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathExtension:fileName]];
-    
-    Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:fileUrl];
-    
-    [timestamp saveToURL:[storageUrl URLByAppendingPathComponent:fileName] 
-        forSaveOperation:UIDocumentSaveForCreating 
-       completionHandler:^ (BOOL success) {
-           
-           NSNotification *notification = nil;
-           
-           if (success) {
-               
-               notification = [NSNotification notificationWithName:kFileMovedToICloudNotification object:timestamp];
-           }
-           
-           else {
-               
-               notification = [NSNotification notificationWithName:kFileFailedMovingToICloudNotification object:nil];
-               
-           }
-           
-           [[NSNotificationCenter defaultCenter] postNotification:notification];
-           
-       }];
-
-    
-}
 
 @end

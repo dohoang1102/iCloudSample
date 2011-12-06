@@ -12,9 +12,6 @@
 
 @synthesize date;
 
-
-#pragma mark - UIDocument overriden methods
-
 -(id)initWithFileURL:(NSURL *)url {
     
     self = [super initWithFileURL:url];
@@ -23,6 +20,7 @@
         
         NSData *data = [NSData dataWithContentsOfURL:url];
         self.date = (NSDate *)[NSKeyedUnarchiver unarchiveObjectWithData:data];
+        
     }
     
     return self;
@@ -30,20 +28,7 @@
 
 -(NSString *)localizedName {
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterFullStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterFullStyle];
-    
-    NSString *name = [dateFormatter stringFromDate:date];
-    
-    [dateFormatter release];
-    
-    return name;
-}
-
--(NSString *)fileType {
-    
-    return @"time";
+    return [NSString stringWithFormat:@"%d", [date timeIntervalSince1970]];
 }
 
 - (id)contentsForType:(NSString *)typeName error:(NSError **)outError {
@@ -57,14 +42,11 @@
 
 - (BOOL)loadFromContents:(id)contents ofType:(NSString *)typeName error:(NSError **)outError {
  
-    if ([contents isKindOfClass:[NSData class]]) {
         
-        self.date = (NSDate *)[NSKeyedUnarchiver unarchiveObjectWithData:(NSData *)contents];
+    self.date = (NSDate *)[NSKeyedUnarchiver unarchiveObjectWithData:(NSData *)contents];
         
-        return YES;
-    }
+    return YES;
     
-    return NO;
 }
 
 #pragma mark - Memory managment

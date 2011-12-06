@@ -15,11 +15,11 @@
 
 @interface APVViewController()
 
--(void)newFile;
+-(void)fetchDocumentsFromCloud;
 -(void)metadataSearchCompleted:(NSNotification *)notification;
--(void)metadataSearchFailed:(NSNotification *)notification;
 -(void)fileMovedToIcloud:(NSNotification *)notification;
 -(void)fileFailedToMoveToICloud:(NSNotification *)notification;
+-(void)documentStateChanged:(NSNotification *)notification;
 
 @end
 
@@ -50,16 +50,47 @@
 
 #pragma mark - NSNotificationCenter callbacks
 
+-(void)documentStateChanged:(NSNotification *)notification {
+    
+    Timestamp *timestamp = (Timestamp *)[notification object];
+    
+    NSUInteger index = [self.icloudFilesArray indexOfObject:timestamp];
+    
+    if (index != NSNotFound) {
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
+        
+        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                              withRowAnimation:UITableViewRowAnimationMiddle];
+    }
+    
+}
+
 -(void)metadataSearchCompleted:(NSNotification *)notification {
     
+    [self.icloudFilesArray removeAllObjects];
     
+    NSMetadataQuery *newQuery = [notification object];
+    
+    [newQuery disableUpdates];
+    [newQuery stopQuery];
+    
+    for (NSMetadataItem *item in [newQuery results]) {
+        
+        NSURL *fileUrl = [item valueForAttribute:NSMetadataItemURLKey];
+        
+        Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:fileUrl];
+        NSLog(@"%@", [timestamp date]);
+        [self.icloudFilesArray addObject:timestamp];
+        
+        [timestamp release];
+    }
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:1];
+    
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationMiddle];
 }
 
-
--(void)metadataSearchFailed:(NSNotification *)notification {
-    
-    
-}
 
 -(void)fileMovedToIcloud:(NSNotification *)notification {
     
@@ -88,7 +119,7 @@
 
 }
 
-#pragma mark - Button callbacks
+#pragma mark - IBActions
 
 -(IBAction)newFile:(id)sender {
  
@@ -112,6 +143,21 @@
     
 }
 
+#pragma mark - Helper methods
+
+-(void)fetchDocumentsFromCloud {
+    
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K like '*.%@'", @"time", NSMetadataItemFSNameKey];
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"NOT %K.pathExtension = ''", NSMetadataItemFSNameKey];
+    
+    self.query = [[[NSMetadataQuery alloc] init] autorelease];
+    [self.query setSearchScopes:[NSArray arrayWithObjects:NSMetadataQueryUbiquitousDocumentsScope, nil]];
+    [self.query setPredicate:predicate];
+    [self.query startQuery];
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -126,13 +172,47 @@
     
     [filesArray addObjectsFromArray:[FileController getFilesFromDocuments]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(fileMovedToIcloud:) 
+                                                 name:kFileMovedToICloudNotification 
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(fileFailedToMoveToICloud:) 
+                                                 name:kFileFailedMovingToICloudNotification 
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(metadataSearchCompleted:)
+                                                 name:NSMetadataQueryDidFinishGatheringNotification 
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(metadataSearchCompleted:)
+                                                 name:NSMetadataQueryDidUpdateNotification 
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(documentStateChanged:) 
+                                                 name:UIDocumentStateChangedNotification 
+                                               object:nil];
+    
+    [self fetchDocumentsFromCloud];
+    
+    //NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:icloudUrl 
+    //                                               includingPropertiesForKeys:nil 
+    //                                                                  options:NSDirectoryEnumerationSkipsHiddenFiles 
+    //                                                                    error:nil];
+    
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.tableView = nil;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -192,13 +272,60 @@
     
     if (cell == nil) {
         
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier] autorelease];
     }
     
-    if (indexPath.section == 0) 
-        [[cell textLabel] setText:[filesArray objectAtIndex:indexPath.row]];
-    else
-        [[cell textLabel] setText:[[icloudFilesArray objectAtIndex:indexPath.row] absoluteString]];
+    if (indexPath.section == 0) {
+     
+        [[cell textLabel] setText:[self.filesArray objectAtIndex:indexPath.row]];
+        
+    }
+    else {
+        
+        Timestamp *timestamp = (Timestamp *)[self.icloudFilesArray objectAtIndex:indexPath.row];
+        
+        NSString *documentStatus = nil;
+        
+        switch ([timestamp documentState]) {
+                
+            case UIDocumentStateNormal:
+                
+                documentStatus = @"Normal";
+                
+                break;
+                
+            case UIDocumentStateClosed:
+                
+                documentStatus = @"Closed";
+                
+                break;
+                
+            case UIDocumentStateInConflict:
+                
+                documentStatus = @"Conflict detected";
+                
+                break;
+                
+            case UIDocumentStateSavingError:
+                
+                documentStatus = @"Saving error";
+                
+                break;
+                
+            case UIDocumentStateEditingDisabled:
+                
+                documentStatus = @"Editing disabled";
+                
+                break;
+                
+                
+        }
+        
+        
+        [[cell textLabel] setText:[timestamp localizedName]];
+        [[cell detailTextLabel] setText:documentStatus];
+        
+    }
     
     return cell;
 }
@@ -208,7 +335,85 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-   
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 0) {
+        
+        NSString *filePath = (NSString *)[self.filesArray objectAtIndex:indexPath.row];
+        
+        if (![[NSFileManager defaultManager] fileExistsAtPath:filePath])
+            filePath = [[FileController getDocumentsDirectory] stringByAppendingPathComponent:filePath];
+        
+        
+        NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
+        
+        NSString *fileName = [NSString stringWithFormat:@"%@", [fileUrl lastPathComponent]];
+        NSURL *storageUrl = [[self.icloudUrl URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:fileName];
+        
+        [[NSFileManager defaultManager] setUbiquitous:YES 
+                                            itemAtURL:fileUrl 
+                                       destinationURL:storageUrl 
+                                                error:nil];
+        
+
+        Timestamp *timestamp = [[Timestamp alloc] initWithFileURL:storageUrl];
+        
+        [timestamp saveToURL:storageUrl forSaveOperation:UIDocumentSaveForOverwriting completionHandler:nil];
+        
+        [self.icloudFilesArray addObject:timestamp];
+        [self.filesArray removeObjectAtIndex:indexPath.row];
+        
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self.icloudFilesArray count] - 1 
+                                                       inSection:1];
+        
+        [self.tableView beginUpdates];
+        
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                              withRowAnimation:UITableViewRowAnimationMiddle];
+        
+        [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
+                              withRowAnimation:UITableViewRowAnimationMiddle];
+        
+        [self.tableView endUpdates];
+        
+        [timestamp closeWithCompletionHandler:nil];
+        
+        /*
+        [timestamp saveToURL:storageUrl 
+            forSaveOperation:UIDocumentSaveForCreating 
+           completionHandler:^ (BOOL success) {
+              
+               if (success) {
+                   
+                   [self.icloudFilesArray addObject:timestamp];
+                   [self.filesArray removeObjectAtIndex:indexPath.row];
+                   
+                   NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self.icloudFilesArray count] - 1 
+                                                               inSection:1];
+                   
+                   [self.tableView beginUpdates];
+                   
+                   [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] 
+                                         withRowAnimation:UITableViewRowAnimationMiddle];
+                   
+                   [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] 
+                                         withRowAnimation:UITableViewRowAnimationMiddle];
+                   
+                   [self.tableView endUpdates];
+                   
+                   [timestamp closeWithCompletionHandler:nil];
+                   
+               }
+               
+               else {
+                   
+                   
+                   [APVUtilities spawnAlertWithMessage:@"Failed to save document"];
+                   
+               }
+               
+           }];*/
+    }
     
 }
 

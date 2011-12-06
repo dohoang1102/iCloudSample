@@ -130,6 +130,7 @@
 		4233E7DC148D521100F5703C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4233E7EA148D5B6000F5703C /* APVUtilites */,
 				4233E7DD148D521D00F5703C /* FileController */,
 			);
 			name = Controllers;
@@ -148,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				4233E7E2148D524200F5703C /* Timestamp */,
-				4233E7EA148D5B6000F5703C /* APVUtilites */,
 			);
 			name = Model;
 			sourceTree = "<group>";

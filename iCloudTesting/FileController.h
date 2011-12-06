@@ -16,6 +16,5 @@
 +(NSString *)getDocumentsDirectory;
 +(NSString *)createNewFile;
 +(NSArray *)getFilesFromDocuments;
-+(void)storeFileInICloud:(NSString *)fileName withStorageUrl:(NSURL *)storageUrl;
 
 @end
